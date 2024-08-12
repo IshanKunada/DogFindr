@@ -183,7 +183,7 @@ def dog(id):
            with app.app_context():
                session = Session(db.engine)  # TODO: don't create a new session, but reuse a globl session var
                dog = session.query(Dogs).filter_by(ID=id)
-               dog.update({"Name":request.form['Name'], "Sex/Breed":request.form['Sex/Breed'], "DateofBirth":request.form['DateofBirth']})
+               dog.update({"Name":request.form['Name'], "Sex":request.form['Sex'], "DateofBirth":request.form['DateofBirth']})
                
                needs = session.query(AdoptionNeeds).filter_by(ID=id)
                needs.update({ "Housetrained":request.form['Housetrained'], "Kids":request.form['Kids'], "Otherdogs-Play":request.form['Otherdogs-Play']})
