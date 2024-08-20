@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/ishan/projects/dogshelter/DogShelter.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///DogShelter2.db'
 app.config['FLASK_DEBUG']=1
 app.secret_key = "1234567"  # TODO: use os.getenv()
 
@@ -17,23 +17,95 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-# Get existing tables from SQLite db
+admins = ['ishan.kunada@gmail.com', 'admin@gmail.com']
 
-from sqlalchemy import create_engine
-engine = create_engine('sqlite:////Users/ishan/projects/dogshelter/DogShelter.db', echo=True)
+class Adopterinfo(db.Model):
+    __tablename__ = 'AdopterInfo'
+    ID = db.Column(db.Integer, primary_key=True)
+    TagNumber = db.Column(db.String(128))
+    Name = db.Column(db.String(128))
+    Adopter = db.Column(db.String(128))
+    Phone = db.Column(db.String(128))
+    Email = db.Column(db.String(128))
+    AdoptionDate = db.Column(db.String(128))
+    Contract = db.Column(db.String(128))
+    PaymentConfirmation = db.Column(db.String(128))
+    CheckNumber = db.Column(db.String(128))
+    Email2 = db.Column(db.String(128))
+    Address = db.Column(db.String(128))
+    City = db.Column(db.String(128))
+    St = db.Column(db.String(128))
+    Zip = db.Column(db.String(128))
+    AdoptercellPhone = db.Column(db.String(128))
+    AdopterHomePhone = db.Column(db.String(128))
+    AdopterWorkphone = db.Column(db.String(128))
+    Comments = db.Column(db.String(128))
+    Transferred = db.Column(db.String(128))
+    FileLocation = db.Column(db.String(128))
 
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
+class Dogadoptionneeds(db.Model):
+    __tablename__ = 'DogAdoptionNeeds'
+    ID = db.Column(db.Integer, primary_key=True)
+    TagNumber = db.Column(db.String(128))
+    Name = db.Column(db.String(128))
+    OtherdogsPlay = db.Column(db.String(128))
+    OtherdogsParalelllive = db.Column(db.String(128))
+    Cats = db.Column(db.String(128))
+    Kids = db.Column(db.String(128))
+    Housetrained = db.Column(db.String(128))
+    Cratetrained = db.Column(db.String(128))
+    leashwalk = db.Column(db.String(128))
+    Doorescape = db.Column(db.String(128))
+    Digger = db.Column(db.String(128))
+    Vocal = db.Column(db.String(128))
+    FireworksFear = db.Column(db.String(128))
+    Specialneeds = db.Column(db.String(128))
+    Notes = db.Column(db.String(128))
 
-Base = automap_base()
-Base.prepare(engine, reflect=True) 
+class Dogmedical(db.Model):
+    __tablename__ = 'DogMedical'
+    ID = db.Column(db.Integer, primary_key=True)
+    TagNumber = db.Column(db.String(128))
+    Dated = db.Column(db.String(128))
+    Name = db.Column(db.String(128))
+    Sex = db.Column(db.String(128))
+    Breed = db.Column(db.String(128))
+    picture = db.Column(db.String(128))
+    DateofBirth = db.Column(db.String(128))
+    Status = db.Column(db.String(128))
+    Source = db.Column(db.String(128))
+    MicrochipNumber = db.Column(db.String(128))
+    Type = db.Column(db.String(128))
+    VaccinationDate = db.Column(db.String(128))
+    VaccPaperworkReceived = db.Column(db.String(128))
+    Veterinarian = db.Column(db.String(128))
+    SizeAndLbs = db.Column(db.String(128))
+    SpayAndNeuterDate = db.Column(db.String(128))
+    RabiesTagNumber = db.Column(db.String(128))
+    HeartWormTestDate = db.Column(db.String(128))
+    HeartwormTestResults = db.Column(db.String(128))
+    Heartwormprev = db.Column(db.String(128))
+    medicalissues = db.Column(db.String(128))
+    Foster = db.Column(db.String(128))
+    Phone = db.Column(db.String(128))
+    Email = db.Column(db.String(128))
 
-Users = Base.classes.Users
-Shelters = Base.classes.Shelters
-Dogs = Base.classes.DogMedical
-AdoptionNeeds = Base.classes.DogAdoptionNeeds
+class Fosterinfo(db.Model):
+    __tablename__ = 'FosterInfo'
+    ID = db.Column(db.Integer, primary_key=True)
+    TagNumber = db.Column(db.String(128))
+    Name = db.Column(db.String(128))
+    Foster = db.Column(db.String(128))
+    Phone = db.Column(db.String(128))
+    Email = db.Column(db.String(128))
+    Fosterspets = db.Column(db.String(128))
 
-admins = ['ishan.kunada@gmail.com']
+class Shelters(db.Model):
+    __tablename__ = 'Shelters'
+    id = db.Column(db.Integer, primary_key=True)
+    address = db.Column(db.String(128))
+    name = db.Column(db.String(128))
+    description = db.Column(db.String(128))
 
 class Users(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -47,23 +119,7 @@ class Users(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-    
-# class Shelters(db.Model):
-#     __tablename__ = 'shelter'
-#     __table_args__ = {'extend_existing': True}
-#     id = db.Column(db.Integer, primary_key=True)
-#     address = db.Column(db.String(30), unique=True)
-#     name = db.Column(db.String(40), unique=True)
-#     image = db.Column(db.String(256))
-#     description = db.Column(db.String(256))
-# class Dogs(db.Model):
-#     __tablename__ = 'dog'
-#     __table_args__ = {'extend_existing': True}
-#     id = db.Column(db.Integer, primary_key=True)
-#     breed = db.Column(db.String(30))
-#     age = db.Column(db.Integer)
-#     name = db.Column(db.String(30))
-    
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -80,19 +136,14 @@ def index():
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
-    #shelters = Shelters.query.all()
-    #print(shelters)
-    # dogs = Dogs.query.all()
     with app.app_context():
-        session = Session(db.engine)
-        dogs = session.query(Dogs).all()
-        session.close()
+        dogs = db.session.query(Dogmedical).all()
 
         if request.method == 'POST' :
             try:
                 search = request.form.get('search')
                 print(search)
-                return render_template("home.html", dogs = dogs)     
+                return render_template("home.html", dogs = dogs)
             except Exception as e:
                 print(e)
                 flash("Something went wrong. Please try again.")
@@ -105,7 +156,7 @@ def home():
 def createaccount():
   	# sending data
     if request.method == 'POST':
-        try: 
+        try:
             email = request.form.get('email')
             password = request.form.get('password')
             confirmpassword = request.form.get('confirmpassword')
@@ -128,7 +179,7 @@ def createaccount():
             return redirect(url_for('createaccount'))
     else:
     	return render_template('createaccount.html')
-    
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   	# sending data
@@ -150,7 +201,7 @@ def login():
         print(e)
         flash("Something went wrong. Please try again.")
         return redirect(url_for('login'))
-    
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -160,12 +211,8 @@ def logout():
 @app.route('/resources')
 def resources():
     try:
-        with app.app_context():
-            session = Session(db.engine)
-            shelters = session.query(Shelters).all()
-            print(shelters)
-            session.close()
-            return render_template('resources.html', shelters = shelters)
+        shelters = db.session.query(Shelters).all()
+        return render_template('resources.html', shelters = shelters)
     except Exception as e:
         print(e)
         flash("Something went wrong. Please try again.")
@@ -176,36 +223,30 @@ def resources():
 @login_required
 def dog(id):
     try:
-        isAdmin = False
-        if current_user.email in admins:
-            isAdmin = True
-        if request.method == 'POST' and isAdmin == True:
-           with app.app_context():
-               session = Session(db.engine)  # TODO: don't create a new session, but reuse a globl session var
-               dog = session.query(Dogs).filter_by(ID=id)
-               dog.update({"Name":request.form['Name'], "Sex":request.form['Sex'], "Breed":request.form['Breed'], "DateofBirth":request.form['DateofBirth'], "Size/Lbs":request.form['Size/Lbs'], "medicalissues":request.form['medicalissues']})
-               
-               needs = session.query(AdoptionNeeds).filter_by(ID=id)
-               needs.update({ "Housetrained":request.form['Housetrained'], "Kids":request.form['Kids'], "Otherdogs-Play":request.form['Otherdogs-Play']})
+        isAdmin = current_user.email in admins
+        dog = Dogmedical.query.get(id)
+        needs = Dogadoptionneeds.query.get(id)
 
-               db.session.commit()
-               session.close()
-               return redirect(url_for('dog', id=id))
-        else:
-            with app.app_context():
-                session = Session(db.engine)
-                dog = session.query(Dogs).filter_by(ID=id).first()
-                needs = session.query(AdoptionNeeds).filter_by(ID=id).first()
-                session.close()
-                if dog:
-                    return render_template('dog.html', id = id, dog = dog, needs = needs, isAdmin = isAdmin)
-                else:
-                    flash("This dog does not exist.")
-                    return redirect(url_for('home'))
+        if not dog:
+            flash("This dog does not exist.")
+            return redirect(url_for('home'))
+
+        if request.method == 'POST' and isAdmin:
+            for key, value in request.form.items():
+                if hasattr(dog, key) and getattr(dog, key) != value:
+                    setattr(dog, key, value)
+                elif hasattr(needs, key) and getattr(needs, key) != value:
+                    setattr(needs, key, value)
+
+            db.session.commit()
+            flash("Changes saved.")
+            return redirect(url_for('dog', id=id))
+        return render_template('dog.html', id=id, dog=dog, needs=needs, isAdmin=isAdmin)
     except Exception as e:
         print(e)
         flash("Something went wrong. Please try again.")
         return redirect(url_for('home'))
+
 @app.route('/community')
 @login_required
 def community():

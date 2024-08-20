@@ -24,7 +24,7 @@
     {% if isAdmin %}
     <form method="POST" action="/dog/{{id}}">
         <table>
-            <tr> 
+            <tr>
                <th>Name</th>
                <td> <input value="{{dog.Name}}" type="text" name="Name" class="dogvalue"></input> </td>
             </tr>
@@ -42,23 +42,23 @@
             </tr>
             <tr>
                 <th>Dog Size</th>
-                <td><input value="{{dog['Size/Lbs']}}" type="text" name="Size/Lbs" class="dogvalue"></input></td>
+                <td><input value="{{dog['SizeAndLbs']}}" type="text" name="SizeAndLbs" class="dogvalue"></input></td>
             </tr>
             <tr>
                 <th>Medical issues</th>
                 <td><input value="{{dog.medicalissues}}" type="text" name="medicalissues" class="dogvalue"></input></td>
             </tr>
-            <tr> 
+            <tr>
                 <th>Are they housetrained?</th>
                 <td> <input value="{{needs.Housetrained}}" type="text" name="Housetrained" class="dogvalue"></input> </td>
              </tr>
-             <tr> 
+             <tr>
                 <th>How are they with kids?</th>
                 <td> <input value="{{needs.Kids}}" type="text" name="Kids" class="dogvalue"></input> </td>
              </tr>
-             <tr> 
+             <tr>
                 <th>How do they play with other dogs?</th>
-                <td> <input value="{{needs['Otherdogs-Play']}}" type="text" name="Otherdogs-Play" class="dogvalue"></input> </td>
+                <td> <input value="{{needs['OtherdogsPlay']}}" type="text" name="OtherdogsPlay" class="dogvalue"></input> </td>
              </tr>
             <tr>
                 <td><input type="submit" value="Submit"></td>
@@ -68,9 +68,9 @@
 
     {% else %}
     <table>
-        <tr> 
+        <tr>
            <th>Name</th>
-           <td>{{dog.Name}}</td> 
+           <td>{{dog.Name}}</td>
         </tr>
         <tr>
             <th>Sex</th>
@@ -82,7 +82,7 @@
         </tr>
         <tr>
             <th>Dog Size</th>
-            <td>{{dog['Size/Lbs']}}</td>
+            <td>{{dog['SizeAndLbs']}}</td>
         </tr>
         <tr>
             <th>Medical issues</th>
@@ -98,12 +98,12 @@
         </tr>
         <tr>
             <th>How are they with other dogs?</th>
-            <td>{{needs['Otherdogs-play']}}</td>
+            <td>{{needs['OtherdogsPlay']}}</td>
         </tr>
     </table>
     {% endif %}
 
-    <!-- <h1>Dog</h1> 
+    <!-- <h1>Dog</h1>
     <h5>{{dog.Name}}</h5>
     <div>
         <p>{{dog.Status}}</p>
@@ -111,8 +111,8 @@
         <p>Date of birth:{{dog.DateofBirth}}</p>
         <p>Vaccination Date:{{dog.VaccinationDate}}</p>
     </div>
-    
-    <div class="row">       
+
+    <div class="row">
         <div class="col-sm-4">
             <div class="card" style="width: 9rem; height: 5rem; margin-bottom: 20px">
                 <div class="card-body">
@@ -135,7 +135,7 @@
             </div>
         </div> -->
     </div>
-    
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
