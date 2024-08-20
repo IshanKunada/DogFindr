@@ -18,14 +18,7 @@
     {% endwith %}
   </div>
 
-  <nav>
-      <a class="topbar button" href="{{ url_for('login') }}">Login</a> 
-      <a class="topbar button" href="{{ url_for('createaccount') }}">Create Account</a>
-      <a class="topbar line" href="{{ url_for('resources') }}">Resources</a> 
-      <a class="topbar line" href="{{ url_for('community') }}">Community</a>
-      <a class="topbar button" href="{{ url_for('logout') }}">logout</a> 
-      <a>DogFindr</a>
-  </nav>
+  {% include 'nav.html' %}
 
   <h1>Other Dog Shelters</h1> 
   

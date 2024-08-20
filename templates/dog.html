@@ -19,12 +19,7 @@
         {% endwith %}
     </div>
 
-    <nav>
-        <a class="topbar line" href="{{ url_for('resources') }}">Resources</a> 
-        <a class="topbar line" href="{{ url_for('community') }}">Community</a>
-        <a class="topbar button" href="{{ url_for('logout') }}">logout</a> 
-        <a>DogFindr</a> 
-    </nav>
+    {% include 'nav.html'%}
     <h1></h1>
     {% if isAdmin %}
     <form method="POST" action="/dog/{{id}}">
@@ -38,8 +33,20 @@
                 <td> <input value="{{dog.Sex}}" type="text" name="Sex" class="dogvalue"></input> </td>
             </tr>
             <tr>
+                <th>Breed</th>
+                <td> <input value="{{dog.Breed}}" type="text" name="Breed" class="dogvalue"></input> </td>
+            </tr>
+            <tr>
                 <th>Date of Birth</th>
                 <td><input value="{{dog.DateofBirth}}" type="text" name="DateofBirth" class="dogvalue"></input></td>
+            </tr>
+            <tr>
+                <th>Dog Size</th>
+                <td><input value="{{dog['Size/Lbs']}}" type="text" name="Size/Lbs" class="dogvalue"></input></td>
+            </tr>
+            <tr>
+                <th>Medical issues</th>
+                <td><input value="{{dog.medicalissues}}" type="text" name="medicalissues" class="dogvalue"></input></td>
             </tr>
             <tr> 
                 <th>Are they housetrained?</th>
@@ -68,6 +75,18 @@
         <tr>
             <th>Sex</th>
             <td>{{dog.Sex}}</td>
+        </tr>
+        <tr>
+            <th>Date of Birth</th>
+            <td>{{dog.DateofBirth}}</td>
+        </tr>
+        <tr>
+            <th>Dog Size</th>
+            <td>{{dog['Size/Lbs']}}</td>
+        </tr>
+        <tr>
+            <th>Medical issues</th>
+            <td>{{dog.medicalissues}}</td>
         </tr>
         <tr>
             <th>Are they housetrained?</th>

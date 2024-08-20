@@ -183,7 +183,7 @@ def dog(id):
            with app.app_context():
                session = Session(db.engine)  # TODO: don't create a new session, but reuse a globl session var
                dog = session.query(Dogs).filter_by(ID=id)
-               dog.update({"Name":request.form['Name'], "Sex":request.form['Sex'], "DateofBirth":request.form['DateofBirth']})
+               dog.update({"Name":request.form['Name'], "Sex":request.form['Sex'], "Breed":request.form['Breed'], "DateofBirth":request.form['DateofBirth'], "Size/Lbs":request.form['Size/Lbs'], "medicalissues":request.form['medicalissues']})
                
                needs = session.query(AdoptionNeeds).filter_by(ID=id)
                needs.update({ "Housetrained":request.form['Housetrained'], "Kids":request.form['Kids'], "Otherdogs-Play":request.form['Otherdogs-Play']})
@@ -221,4 +221,3 @@ if __name__ == '__main__':
 # Upload images and insert image URLs in database
 # Finish adding all relevant fields in Dog from DogMedical and DogAdoption
 # Adding Shelters to Resources or planning what to write on the page
-# Seperate Sex and Breed in database

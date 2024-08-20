@@ -9,7 +9,7 @@ h1{
 .topbar:hover{
     color: green
 }
-.button{
+/* .button{
     border-width: 2px;
     border-color: red;
     border-style: solid;
@@ -17,10 +17,11 @@ h1{
     text-align:center;
     padding:10px;
     box-shadow:2px 5px;
-}
+} */
 .line{
-    padding:10px
+    padding:10px 
 }
+
 .box{
     border-width: 3px;
     border-color: green;
@@ -34,4 +35,8 @@ h1{
 }
 .dogvalue{
     width: 400px;
+}
+.logo{
+    float:left;
+    padding-top:10px;
 }

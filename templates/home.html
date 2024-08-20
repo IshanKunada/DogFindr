@@ -17,18 +17,16 @@
         {% endif %}
     {% endwith %}
   </div>
+  
+  {% include 'nav.html' %}
 
-  <nav>
-      <a class="topbar line" href="{{ url_for('resources') }}">Resources</a> 
-      <a class="topbar line" href="{{ url_for('community') }}">Community</a>
-      <a class="topbar button" href="{{ url_for('logout') }}">logout</a> 
-      <a class="topbar line" href="{{ url_for('home') }}">DogFindr</a>
-  </nav>
+  <br>
+  <br>
 
   <h1>Welcome</h1> 
-  <form action="/home" method="post"> 
+  <!-- <form action="/home" method="post"> 
     <input type text id="search" name="search" placeholder="search">
-  </form> 
+  </form>  -->
 
 
   <div class="row">
@@ -40,6 +38,7 @@
             <h5 class="card-title">{{dog.Name}}</h5>
             <p class="card-text">{{dog.Status}}</p>
             <p class="card-text">{{dog.Sex}}</p>
+            <p class="card-text">{{dog.Breed}}</p>
             <a href="/dog/{{dog.ID}}" class="btn btn-primary">Learn More</a>
           </div>
         </div>
