@@ -130,6 +130,7 @@ def load_user(user_id):
   return Users.query.get(int(user_id))
 
 @app.route('/')
+@login_required
 def index():
     return render_template("index.html")
 

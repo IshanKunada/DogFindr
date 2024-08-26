@@ -1,10 +1,8 @@
-h1{
-    color:blue
-}
+
 .topbar{
     float: right;
     text-decoration: none;
-    color: black;
+    
 }
 .topbar:hover{
     color: green
@@ -20,4 +18,7 @@ h1{
 .logo{
     float:left;
     padding-top:10px;
+}
+.account-input{
+    width: 300px;
 }
