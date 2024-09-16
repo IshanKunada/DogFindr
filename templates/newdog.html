@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body class="container">
+    <div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+
+    {% include 'nav.html'%}
+
+    <br>
+    <br>
+
+    {% if isAdmin %}
+    <h1>Add dog details</h1>
+    <form method="POST" action="/newdog">
+        <table class="table table-responsive-sm">
+            <tr>
+               <th>Name</th>
+               <td> <input placeholder="Name" type="text" name="Name" class="form-control dogvalue"></input> </td>
+            </tr>
+            <tr>
+                <th>Sex</th>
+                <td> <input placeholder="Sex" type="text" name="Sex" class="form-control dogvalue"></input> </td>
+            </tr>
+            <tr>
+                <th>Breed</th>
+                <td> <input placeholder="Breed" type="text" name="Breed" class="form-control dogvalue"></input> </td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td><input placeholder="Date of Birth" type="text" name="DateofBirth" class="form-control dogvalue"></input></td>
+            </tr>
+            <tr>
+                <th>Dog Size</th>
+                <td><input placeholder="Size And Lbs" type="text" name="SizeAndLbs" class="form-control dogvalue"></input></td>
+            </tr>
+            <tr>
+                <th>Medical issues</th>
+                <td><input placeholder="medicalissue" type="text" name="medicalissues" class="form-control dogvalue"></input></td>
+            </tr>
+            <tr>
+                <th>Are they housetrained?</th>
+                <td> <input placeholder="Housetrained" type="text" name="Housetrained" class="form-control dogvalue"></input> </td>
+             </tr>
+             <tr>
+                <th>How are they with kids?</th>
+                <td> <input placeholder="Kids" type="text" name="Kids" class="form-control dogvalue"></input> </td>
+             </tr>
+             <tr>
+                <th>How do they play with other dogs?</th>
+                <td> <input placeholder="OtherdogsPlay" type="text" name="OtherdogsPlay" class="form-control dogvalue"></input> </td>
+             </tr>
+             <tr>
+                <th>Image</th>
+                <td> <input placeholder="picture link" type="text" name="picture" class="form-control dogvalue"></input> </td>
+             </tr>
+            <tr>
+                <td><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+    {% endif %}
+</body>
+
+</html>

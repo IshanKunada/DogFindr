@@ -2,7 +2,7 @@
 #finish building out home page
 #come up with classes for the dogs
 
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, login_manager, login_user, logout_user, current_user, LoginManager, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
@@ -127,7 +127,9 @@ def load_user(user_id):
   Loads a user from the database based on the user_id provided.
   Returns the User object corresponding to the user_id.
   """
-  return Users.query.get(int(user_id))
+  user = Users.query.get(int(user_id))
+  session["isAdmin"] = user.email in admins
+  return user
 
 @app.route('/')
 @login_required
@@ -207,6 +209,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    session["isAdmin"] = False
     return redirect(url_for('login'))
 
 @app.route('/resources')
@@ -224,7 +227,6 @@ def resources():
 @login_required
 def dog(id):
     try:
-        isAdmin = current_user.email in admins
         dog = Dogmedical.query.get(id)
         needs = Dogadoptionneeds.query.get(id)
 
@@ -232,7 +234,7 @@ def dog(id):
             flash("This dog does not exist.")
             return redirect(url_for('home'))
 
-        if request.method == 'POST' and isAdmin:
+        if request.method == 'POST' and session["isAdmin"]:
             for key, value in request.form.items():
                 if hasattr(dog, key) and getattr(dog, key) != value:
                     setattr(dog, key, value)
@@ -242,7 +244,7 @@ def dog(id):
             db.session.commit()
             flash("Changes saved.")
             return redirect(url_for('dog', id=id))
-        return render_template('dog.html', id=id, dog=dog, needs=needs, isAdmin=isAdmin)
+        return render_template('dog.html', id=id, dog=dog, needs=needs, isAdmin=session["isAdmin"])
     except Exception as e:
         print(e)
         flash("Something went wrong. Please try again.")
@@ -257,6 +259,33 @@ def community():
         print(e)
         flash("Something went wrong. Please try again.")
         return redirect(url_for('home'))
+
+@app.route('/newdog', methods=['GET', 'POST'])
+@login_required
+def newdog():
+    try:
+        if request.method == 'POST' and session["isAdmin"]:
+            new_dog_medical = Dogmedical()
+            new_dog_adoptionneeds = Dogadoptionneeds()
+            for key, value in request.form.items():
+                if hasattr(Dogmedical, key):
+                    setattr(new_dog_medical, key, value)
+                elif hasattr(Dogadoptionneeds, key):
+                    setattr(new_dog_adoptionneeds, key, value)
+            
+            db.session.add(new_dog_medical)
+            db.session.add(new_dog_adoptionneeds)
+            db.session.commit()
+            flash("New dog added")
+            
+            return render_template('newdog.html', isAdmin = session["isAdmin"])
+        else:
+            return render_template('newdog.html', isAdmin = session["isAdmin"])
+    except Exception as e:
+        print(e)
+        flash("Something went wrong. Please try again.")
+        return redirect(url_for('newdog.html', isAdmin = session["isAdmin"]))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
