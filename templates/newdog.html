@@ -24,7 +24,7 @@
     <br>
     <br>
 
-    {% if isAdmin %}
+    {% if session["isAdmin"] %}
     <h1>Add dog details</h1>
     <form method="POST" action="/newdog">
         <table class="table table-responsive-sm">

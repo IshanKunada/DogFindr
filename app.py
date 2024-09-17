@@ -270,26 +270,33 @@ def community():
 def newdog():
     try:
         if request.method == 'POST' and session["isAdmin"]:
+            new_dog_adopterinfo = Adopterinfo()
             new_dog_medical = Dogmedical()
             new_dog_adoptionneeds = Dogadoptionneeds()
             for key, value in request.form.items():
+                if key=="Name": 
+                    value = value.title() 
+
                 if hasattr(Dogmedical, key):
                     setattr(new_dog_medical, key, value)
-                elif hasattr(Dogadoptionneeds, key):
+                if hasattr(Dogadoptionneeds, key):
                     setattr(new_dog_adoptionneeds, key, value)
+                if hasattr(Adopterinfo, key):
+                    setattr(new_dog_adopterinfo, key, value)
             
             db.session.add(new_dog_medical)
             db.session.add(new_dog_adoptionneeds)
+            db.session.add(new_dog_adopterinfo)
             db.session.commit()
             flash("New dog added")
             
-            return render_template('newdog.html', isAdmin = session["isAdmin"])
+            return redirect(url_for('home'))
         else:
-            return render_template('newdog.html', isAdmin = session["isAdmin"])
+            return render_template('newdog.html')
     except Exception as e:
         print(e)
         flash("Something went wrong. Please try again.")
-        return redirect(url_for('newdog.html', isAdmin = session["isAdmin"]))
+        return redirect(url_for('newdog.html'))
 
 
 if __name__ == '__main__':
