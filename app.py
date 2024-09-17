@@ -16,6 +16,7 @@ app.secret_key = "1234567"  # TODO: use os.getenv()
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+POSTS_PER_PAGE = 21
 
 admins = ['ishan.kunada@gmail.com', 'admin@gmail.com']
 
@@ -140,19 +141,23 @@ def index():
 @login_required
 def home():
     with app.app_context():
-        dogs = db.session.query(Dogmedical).all()
 
         if request.method == 'POST' :
             try:
                 search = request.form.get('search')
-                print(search)
+                dogs = db.session.query(Dogmedical).filter(Dogmedical.Name.ilike(f"%{search}%")).order_by(Dogmedical.Name).all()
                 return render_template("home.html", dogs = dogs)
             except Exception as e:
                 print(e)
                 flash("Something went wrong. Please try again.")
                 return redirect(url_for('home', dogs = dogs))
         else:
-            return render_template("home.html", dogs = dogs)
+            query = db.session.query(Dogmedical).order_by(Dogmedical.Name)
+            page = request.args.get('page', 1, type=int)
+            dogs = db.paginate(query, page=page, per_page=POSTS_PER_PAGE, error_out=False)
+            next_url = url_for('home', page=dogs.next_num) if dogs.has_next else None
+            prev_url = url_for('home', page=dogs.prev_num) if dogs.has_prev else None
+            return render_template("home.html", dogs = dogs.items, next_url = next_url, prev_url = prev_url)
 
 
 @app.route('/createaccount', methods=['GET', 'POST'])

@@ -4,7 +4,7 @@
     <a class="topbar line" href="{{ url_for('resources') }}">Resources</a> 
     <a class="topbar line" href="{{ url_for('community') }}">Community</a>
     <a class="topbar line" href="{{ url_for('newdog')}}">Add Dog</a>
-    <b><a class="topbar logo" href="{{ url_for('home') }}">DogFindr</a></b>
+    <b><a class="topbar logo" href="{{ url_for('home') }}">Home</a></b>
 </nav>
 {% else %}
 <!--TODO-->
@@ -12,6 +12,6 @@
     <button class="topbar line btn btn-primary" onclick="window.location.assign('/logout')">Logout</button>
     <a class="topbar line" href="{{ url_for('resources') }}">Resources</a> 
     <a class="topbar line" href="{{ url_for('community') }}">Community</a>
-    <b><a class="topbar logo" href="{{ url_for('home') }}">DogFindr</a></b>
+    <b><a class="topbar logo" href="{{ url_for('home') }}">Home</a></b>
 </nav>
 {% endif %}
