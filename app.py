@@ -18,7 +18,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 POSTS_PER_PAGE = 21
 
-admins = ['ishan.kunada@gmail.com', 'admin@gmail.com', 'admin2@gmail.com', 'csumani@yahoo.com']
+admins = ['ishan.kunada@gmail.com', 'admin@gmail.com', 'admin2@gmail.com', 'csumani@yahoo.com', 'mehanni@gmail.com']
 
 class Adopterinfo(db.Model):
     __tablename__ = 'AdopterInfo'
