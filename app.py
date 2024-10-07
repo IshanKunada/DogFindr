@@ -7,6 +7,7 @@ from flask_login import login_required, login_manager, login_user, logout_user, 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
+from amazons3 import image_urls
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///DogShelter2.db'
@@ -140,6 +141,7 @@ def index():
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
+    session['images'] = image_urls
     with app.app_context():
 
         if request.method == 'POST' :

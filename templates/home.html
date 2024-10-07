@@ -32,14 +32,18 @@
   <div class="row">
     {% if dogs %}
         {% for dog in dogs %}
-        <div class="col-sm-4">
-          <div class="card" style="width: 18rem; height: 18rem; margin-bottom: 20px">
+        <div class="col-4">
+          <div class="card" style="width: auto; height: auto; margin-bottom: 20px; margin-right: 10px">
           <div class="card-body">
             <h5 class="card-title">{{dog.Name}}</h5>
+            {% if session["images"].get("dogimages/" ~ dog.ID ~ ".jpg") %}
+              <img src='{{ session["images"].get("dogimages/" ~ dog.ID ~ ".jpg") }}' alt="{{ dog.ID }}" width="100%" />
+            {% endif %}
             <p class="card-text">{{dog.Status}}</p>
             <p class="card-text">{{dog.Sex}}</p>
             <p class="card-text">{{dog.Breed}}</p>
             <a href="/dog/{{dog.ID}}" class="btn btn-primary">Learn More</a>
+            
           </div>
         </div>
       </div>

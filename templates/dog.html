@@ -64,10 +64,6 @@
                 <th>How do they play with other dogs?</th>
                 <td> <input value="{{needs['OtherdogsPlay']}}" type="text" name="OtherdogsPlay" class="form-control dogvalue"></input> </td>
              </tr>
-             <tr>
-                <th>Image</th>
-                <td> <input value="{{dog.picture}}" type="text" name="picture" class="form-control dogvalue"></input> </td>
-             </tr>
             <tr>
                 <td><input type="submit" value="Submit"></td>
             </tr>
@@ -75,7 +71,9 @@
     </form>
     {% endif %}
     <h1>Dog Details</h1>
-    <img src="https://dogfindr.s3.us-east-2.amazonaws.com/dogimages/{{id}}.jpg" />
+    {% if session["images"].get("dogimages/" ~ dog.ID ~ ".jpg") %}
+    <img src='{{ session["images"].get("dogimages/" ~ dog.ID ~ ".jpg") }}' alt="{{ dog.ID }}" width="300px" />
+  {% endif %}
     <table class="table table-responsive-sm">
         <tr>
            <th>Name</th>
