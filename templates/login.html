@@ -1,33 +1,39 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body class="container">
-  {% include 'navlogout.html' %}
+  <div>
+    {% include 'navlogout.html' %}
 
-  <br>
-  <br>
-  
-  <div>{% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+    <br>
+    <br>
+    
+    <div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
   </div>
 
-  <h1>Log in</h1>
-  <form action="/login" method = "post">
-    <div class="form-row"><div class="col-3"><input type="email" id="email" name="email" placeholder="email"  class="form-control"></div></div><br>
-    <div class="form-row"><div class="col-3"><input type="password" id="password" name="password" placeholder="password" class="form-control"></div></div><br>
-    <input type="submit" value="Submit">
-  </form>  
+  <div class="main-content">
+    <h1 class="mobile-title">Log in</h1>
+    <form action="/login" method = "post">
+      <div class="form-row"><div class="col-12 col-lg-3"><input type="email" id="email" name="email" placeholder="email"  class="form-control mobile-input"></div></div><br>
+      <div class="form-row"><div class="col-12 col-lg-3"><input type="password" id="password" name="password" placeholder="password" class="form-control mobile-input"></div></div><br>
+      <input type="submit" value="Submit" class="mobile-submit">
+    </form>  
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

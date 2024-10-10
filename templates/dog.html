@@ -1,145 +1,152 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body class="container">
     <div>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+        <div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+
+        {% include 'nav.html'%}
+
+        <br>
+        <br>
     </div>
 
-
-    {% include 'nav.html'%}
-
-    <br>
-    <br>
-
-    {% if isAdmin %}
-    <h1>Edit dog details</h1>
-    <form method="POST" action="/dog/{{id}}">
+    <div class="main-content">
+        {% if isAdmin %}
+            <h1 class="mobile-title">Edit details</h1>
+            <form method="POST" action="/dog/{{id}}">
+                <table class="table table-responsive-sm">
+                    <tr>
+                        <th class="dogheading">Name</th>
+                        <td class="dogvalue"><input value="{{dog.Name}}" type="text" name="Name" class="form-control"></input></td>
+                    </tr>
+                    <tr>
+                        <th>Sex</th>
+                        <td class="dogvalue"><input value="{{dog.Sex}}" type="text" name="Sex" class="form-control"></input></td>
+                    </tr>
+                    <tr>
+                        <th>Breed</th>
+                        <td class="dogvalue"><input value="{{dog.Breed}}" type="text" name="Breed" class="form-control"></input></td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth</th>
+                        <td class="dogvalue"><input value="{{dog.DateofBirth}}" type="text" name="DateofBirth" class="form-control"></input></td>
+                    </tr>
+                    <tr>
+                        <th>Dog Size</th>
+                        <td class="dogvalue"><input value="{{dog['SizeAndLbs']}}" type="text" name="SizeAndLbs" class="form-control"></input></td>
+                    </tr>
+                    <tr>
+                        <th>Medical issues</th>
+                        <td class="dogvalue"><input value="{{dog.medicalissues}}" type="text" name="medicalissues" class="form-control"></input></td>
+                    </tr>
+                    <tr>
+                        <th>Are they housetrained?</th>
+                        <td class="dogvalue"> <input value="{{needs.Housetrained}}" type="text" name="Housetrained" class="form-control"></input> </td>
+                    </tr>
+                    <tr>
+                        <th>How are they with kids?</th>
+                        <td class="dogvalue"> <input value="{{needs.Kids}}" type="text" name="Kids" class="form-control"></input></td>
+                    </tr>
+                    <tr>
+                        <th>How do they play with other dogs?</th>
+                        <td class="dogvalue"> <input value="{{needs['OtherdogsPlay']}}" type="text" name="OtherdogsPlay" class="form-control"></input></td>
+                    </tr>
+                    <tr>
+                        <td class="dogvalue"><input type="submit" value="Submit" class="mobile-submit"></td>
+                    </tr>
+                </table>
+            </form>
+        {% endif %}
+        
+        <h1 class="mobile-title">Dog Details</h1>
+        {% if session["images"].get("dogimages/" ~ dog.ID ~ ".jpg") %}
+            <img src='{{ session["images"].get("dogimages/" ~ dog.ID ~ ".jpg") }}' alt="{{ dog.ID }}" width="300px" />
+        {% endif %}
+        
         <table class="table table-responsive-sm">
             <tr>
-               <th>Name</th>
-               <td> <input value="{{dog.Name}}" type="text" name="Name" class="form-control dogvalue"></input> </td>
+            <th>Name</th>
+            <td class="userrow">{{dog.Name}}</td>
             </tr>
             <tr>
                 <th>Sex</th>
-                <td> <input value="{{dog.Sex}}" type="text" name="Sex" class="form-control dogvalue"></input> </td>
-            </tr>
-            <tr>
-                <th>Breed</th>
-                <td> <input value="{{dog.Breed}}" type="text" name="Breed" class="form-control dogvalue"></input> </td>
+                <td class="userrow">{{dog.Sex}}</td>
             </tr>
             <tr>
                 <th>Date of Birth</th>
-                <td><input value="{{dog.DateofBirth}}" type="text" name="DateofBirth" class="form-control dogvalue"></input></td>
+                <td class="userrow">{{dog.DateofBirth}}</td>
             </tr>
             <tr>
                 <th>Dog Size</th>
-                <td><input value="{{dog['SizeAndLbs']}}" type="text" name="SizeAndLbs" class="form-control dogvalue"></input></td>
+                <td class="userrow">{{dog['SizeAndLbs']}}</td>
             </tr>
             <tr>
                 <th>Medical issues</th>
-                <td><input value="{{dog.medicalissues}}" type="text" name="medicalissues" class="form-control dogvalue"></input></td>
+                <td class="userrow">{{dog.medicalissues}}</td>
             </tr>
             <tr>
                 <th>Are they housetrained?</th>
-                <td> <input value="{{needs.Housetrained}}" type="text" name="Housetrained" class="form-control dogvalue"></input> </td>
-             </tr>
-             <tr>
-                <th>How are they with kids?</th>
-                <td> <input value="{{needs.Kids}}" type="text" name="Kids" class="form-control dogvalue"></input> </td>
-             </tr>
-             <tr>
-                <th>How do they play with other dogs?</th>
-                <td> <input value="{{needs['OtherdogsPlay']}}" type="text" name="OtherdogsPlay" class="form-control dogvalue"></input> </td>
-             </tr>
+                <td class="userrow">{{needs.Housetrained}}</td>
+            </tr>
             <tr>
-                <td><input type="submit" value="Submit"></td>
+                <th>How are they with kids?</th>
+                <td class="userrow">{{needs.Kids}}</td>
+            </tr>
+            <tr>
+                <th>How are they with other dogs?</th>
+                <td class="userrow">{{needs['OtherdogsPlay']}}</td>
             </tr>
         </table>
-    </form>
-    {% endif %}
-    <h1>Dog Details</h1>
-    {% if session["images"].get("dogimages/" ~ dog.ID ~ ".jpg") %}
-    <img src='{{ session["images"].get("dogimages/" ~ dog.ID ~ ".jpg") }}' alt="{{ dog.ID }}" width="300px" />
-  {% endif %}
-    <table class="table table-responsive-sm">
-        <tr>
-           <th>Name</th>
-           <td class="userrow">{{dog.Name}}</td>
-        </tr>
-        <tr>
-            <th>Sex</th>
-            <td class="userrow">{{dog.Sex}}</td>
-        </tr>
-        <tr>
-            <th>Date of Birth</th>
-            <td class="userrow">{{dog.DateofBirth}}</td>
-        </tr>
-        <tr>
-            <th>Dog Size</th>
-            <td class="userrow">{{dog['SizeAndLbs']}}</td>
-        </tr>
-        <tr>
-            <th>Medical issues</th>
-            <td class="userrow">{{dog.medicalissues}}</td>
-        </tr>
-        <tr>
-            <th>Are they housetrained?</th>
-            <td class="userrow">{{needs.Housetrained}}</td>
-        </tr>
-        <tr>
-            <th>How are they with kids?</th>
-            <td class="userrow">{{needs.Kids}}</td>
-        </tr>
-        <tr>
-            <th>How are they with other dogs?</th>
-            <td class="userrow">{{needs['OtherdogsPlay']}}</td>
-        </tr>
-    </table>
 
-    <!-- <h1>Dog</h1>
-    <h5>{{dog.Name}}</h5>
-    <div>
-        <p>{{dog.Status}}</p>
-        <p>{{dog["Sex/Breed"]}}</p>
-        <p>Date of birth:{{dog.DateofBirth}}</p>
-        <p>Vaccination Date:{{dog.VaccinationDate}}</p>
-    </div>
+        <!-- <h1>Dog</h1>
+        <h5>{{dog.Name}}</h5>
+        <div>
+            <p>{{dog.Status}}</p>
+            <p>{{dog["Sex/Breed"]}}</p>
+            <p>Date of birth:{{dog.DateofBirth}}</p>
+            <p>Vaccination Date:{{dog.VaccinationDate}}</p>
+        </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card" style="width: 9rem; height: 5rem; margin-bottom: 20px">
-                <div class="card-body">
-                    <h5 class="card-title">{{dog.Name}}</h5>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card" style="width: 9rem; height: 5rem; margin-bottom: 20px">
+                    <div class="card-body">
+                        <h5 class="card-title">{{dog.Name}}</h5>
+                    </div>
                 </div>
             </div>
+            <div class="col-sm-4">
+                <div class="card" style="width: 9rem; height: 5rem; margin-bottom: 20px">
+                    <div class="card-body">
+                        <p>{{dog["Sex/Breed"]}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="width: 9rem; height: 5rem; margin-bottom: 20px">
+                    <div class="card-body">
+                        <p>{{dog.DateofBirth}}</p>
+                    </div>
+                </div>
+            </div> -->
         </div>
-        <div class="col-sm-4">
-            <div class="card" style="width: 9rem; height: 5rem; margin-bottom: 20px">
-                <div class="card-body">
-                    <p>{{dog["Sex/Breed"]}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card" style="width: 9rem; height: 5rem; margin-bottom: 20px">
-                <div class="card-body">
-                    <p>{{dog.DateofBirth}}</p>
-                </div>
-            </div>
-        </div> -->
     </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

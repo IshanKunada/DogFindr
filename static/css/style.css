@@ -25,3 +25,31 @@
 .next-page{
     float:right;
 }
+
+
+@media only screen and (max-width: 600px) {
+    .mobile-input{
+        font-size:24px;
+    }
+    .mobile-title{
+        font-size: 35px;
+        text-align:center;
+        margin-bottom:10px;
+    }
+    .mobile-submit{
+        float:right;
+        font-size:30px;
+    }
+    .topbar{
+        font-size: 20px;
+    }
+    .main-content{
+        padding-top:20px;
+    }
+    .dogheading {
+        width: 10px;
+    }
+    .dogvalue{
+        width: 200px;
+    }
+}

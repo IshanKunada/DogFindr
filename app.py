@@ -17,7 +17,7 @@ app.secret_key = "1234567"  # TODO: use os.getenv()
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
-POSTS_PER_PAGE = 21
+POSTS_PER_PAGE = 30
 
 admins = ['ishan.kunada@gmail.com', 'admin@gmail.com', 'admin2@gmail.com', 'csumani@yahoo.com', 'mehanni@gmail.com']
 

@@ -1,31 +1,35 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body class="container">
     <div>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+        <div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+
+        {% include 'nav.html'%}
+
+        <br>
+        <br>
     </div>
 
-
-    {% include 'nav.html'%}
-
-    <br>
-    <br>
-
+    <div class="main-content">
     {% if session["isAdmin"] %}
-    <h1>Add dog details</h1>
+    <h1 class="mobile-title">Add details</h1>
     <form method="POST" action="/newdog">
         <table class="table table-responsive-sm">
             <tr>
@@ -69,11 +73,12 @@
                 <td> <input placeholder="picture link" type="text" name="picture" class="form-control dogvalue"></input> </td>
              </tr>
             <tr>
-                <td><input type="submit" value="Submit"></td>
+                <td><input type="submit" value="Submit" class="mobile-submit"></td>
             </tr>
         </table>
     </form>
     {% endif %}
+</div>
 </body>
 
 </html>
