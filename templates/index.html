@@ -7,6 +7,7 @@
 </head>
 
 <body class="container">
+  <div>
     <div>{% with messages = get_flashed_messages() %}
     {% if messages %}
       <ul class=flashes>
@@ -17,7 +18,23 @@
     {% endif %}
   {% endwith %}</div>
     {%include 'navlogout.html'%}
-    <h1></h1> 
+
+    <br>
+    <br>
+
+  </div>
+  <div class="main-content">
+    <div class="text-center">
+      <h1 class="mobile-title">Dog Haven</h1> 
+      <img src="{{ url_for('static', filename='dogimages/7.jpg') }}" class="image-sizing"/>
+      <p>
+        Dog Haven allows dog adoption apps to add, edit and list available dogs for rescue and adoption 
+        using an admin interface through protected login system. This is a pilot project for non profit 
+        dog adoption organizations and was built to help Twyla’s Friends, a non profit organization which 
+        rescues and helps homeless dogs to provide a home in Kingwood, Texas community.
+      </p>
+    </div>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 

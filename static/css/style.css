@@ -25,8 +25,17 @@
 .next-page{
     float:right;
 }
-
-
+.image-sizing{
+    width:20%;
+    margin-top:20px;
+    margin-bottom:20px;
+    text-align:center;
+}
+.text-center{
+    width:75%;
+    margin-left:auto;
+    margin-right:auto;
+}
 @media only screen and (max-width: 600px) {
     .mobile-input{
         font-size:24px;
@@ -51,5 +60,8 @@
     }
     .dogvalue{
         width: 200px;
+    }
+    .image-sizing{
+        width:60%;
     }
 }
